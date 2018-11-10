@@ -18,8 +18,17 @@ for series in sonarr.get_series():
                     if any(i in releases['title'].upper() for i in ['DD', '5.1', 'DTS']):
                         guid = releases['guid']
                         indexer_id = releases['indexerId']
-                        sonarr.post_release(guid, indexer_id)
-                        print releases['title'].encode('utf-8')
-                        break
+                        for rejections in releases['rejections']:
+                            if "blacklisted" in rejections:
+                                blacklisted = True
+                                break
+                            else:
+                                blacklisted = False
+                        if(blacklisted):
+                            continue
+                        else:
+                            print releases['title'].encode('utf-8')
+                            sonarr.post_release(guid, indexer_id)
+                            break
 
 print "done"
