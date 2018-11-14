@@ -20,3 +20,7 @@ class Sonarr(object):
     def post_release(self, guid, indexer_id):
         response = requests.post("{}/api/release?guid={}&indexerId={}&apikey={}".format(self.url, guid, indexer_id, self.api_key))
         return response.json()
+
+    def get_profiles(self):
+        response = requests.get("{}/api/profile?apikey={}".format(self.url, self.api_key))
+        return response.json()
