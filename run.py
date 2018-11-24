@@ -53,6 +53,9 @@ for series in tqdm(sonarr.get_series()):
                                 elif "is not wanted in profile" in rejections:
                                     rejected = True
                                     break
+                                elif "requested" in rejections:
+                                    rejected = True
+                                    break
                                 else:
                                     rejected = False
                             if(rejected):
